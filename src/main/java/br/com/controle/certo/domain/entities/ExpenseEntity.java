@@ -1,24 +1,24 @@
 package br.com.controle.certo.domain.entities;
 
-import br.com.controle.certo.infrastructure.repository.model.DbCategory;
-import br.com.controle.certo.infrastructure.repository.model.DbUser;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class ExpenseEntity {
     private Integer idExpense;
+    private String uuidExpense;
     private String expenseDescription;
     private Double expenseValue;
     private Integer currentInstallment;
-    private Integer recurringExpense;
+    private Integer totalInstallment;
+    private Boolean recurringExpense;
     private LocalDateTime dhCreate;
     private LocalDateTime dhUpdate;
-    private DbCategory dbCategory;
-    private DbUser dbUser;
+    private CategoryEntity categoryEntity;
+    private UserEntity userEntity;
 }
