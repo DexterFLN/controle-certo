@@ -1,8 +1,6 @@
 package br.com.controle.certo.infrastructure.repository.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +9,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_usuario")
 public class DbUser {
 
@@ -39,7 +39,7 @@ public class DbUser {
     private LocalDateTime dhCreate;
     @Column(name = "dh_atualizacao")
     private LocalDateTime dhUpdate;
-    @OneToMany
+    @OneToMany(mappedBy = "dbUser")
     private List<DbExpense> dbExpenseList;
     @OneToMany
     private List<DbMonthlyBudget> dbMonthlyBudgetList;

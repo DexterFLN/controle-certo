@@ -1,6 +1,6 @@
 package br.com.controle.certo.domain.service.CategoryService.impl;
 
-import br.com.controle.certo.application.gateway.GetUserGateway;
+import br.com.controle.certo.application.gateway.user.GetUserGateway;
 import br.com.controle.certo.application.gateway.usercategory.PostUserCategoryGateway;
 import br.com.controle.certo.domain.entities.CategoryEntity;
 import br.com.controle.certo.domain.entities.UserCategoryEntity;

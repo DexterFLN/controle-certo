@@ -1,11 +1,15 @@
 package br.com.controle.certo.infrastructure.entrypoint;
 
 import br.com.controle.certo.application.usecase.category.*;
+import br.com.controle.certo.domain.entities.CategoryEntity;
 import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestCategory;
+import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/v1/category")
@@ -23,9 +27,9 @@ public class CategoryController {
     private PutCategoryUseCase putCategoryUseCase;
 
     @PostMapping()
-    public ResponseEntity<?> saveCategory(@RequestBody RequestCategory body, @RequestHeader(value = "document") String document) {
-        postCategoryUseCase.saveCategory(body, document);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> postCategory(@Valid @RequestBody RequestCategory body, @RequestHeader(value = "document") String userDocument) {
+        ResponseCategory response = postCategoryUseCase.postCategory(body, userDocument);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping()
@@ -49,7 +53,7 @@ public class CategoryController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteCategoryById(@PathVariable(value = "id") Integer idCategory, @RequestHeader(value = "document") String document) {
         deleteCategoryUseCase.deleteCategoryById(document, idCategory);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

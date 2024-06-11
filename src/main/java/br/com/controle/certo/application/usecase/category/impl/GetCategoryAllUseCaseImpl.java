@@ -1,6 +1,6 @@
 package br.com.controle.certo.application.usecase.category.impl;
 
-import br.com.controle.certo.application.gateway.GetCategoryGateway;
+import br.com.controle.certo.application.gateway.category.GetCategoryGateway;
 import br.com.controle.certo.application.usecase.category.GetCategoryAllUseCase;
 import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import static br.com.controle.certo.application.mapper.CategoryUseCaseMapper.cat
 public class GetCategoryAllUseCaseImpl implements GetCategoryAllUseCase {
 
     @Autowired
-    GetCategoryGateway categoryByIdGateway;
+    private GetCategoryGateway categoryByIdGateway;
 
     @Override
     public List<ResponseCategory> getAllCategory(String userDocument) {

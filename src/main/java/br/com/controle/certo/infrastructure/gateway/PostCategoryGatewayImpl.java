@@ -1,6 +1,6 @@
 package br.com.controle.certo.infrastructure.gateway;
 
-import br.com.controle.certo.application.gateway.PostCategoryGateway;
+import br.com.controle.certo.application.gateway.category.PostCategoryGateway;
 import br.com.controle.certo.domain.entities.CategoryEntity;
 import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestCategory;
 import br.com.controle.certo.infrastructure.repository.impl.DbCategoryRepository;
