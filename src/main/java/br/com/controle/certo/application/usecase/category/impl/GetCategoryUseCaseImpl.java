@@ -1,6 +1,6 @@
 package br.com.controle.certo.application.usecase.category.impl;
 
-import br.com.controle.certo.application.gateway.GetCategoryGateway;
+import br.com.controle.certo.application.gateway.category.GetCategoryGateway;
 import br.com.controle.certo.application.usecase.category.GetCategoryUseCase;
 import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseCategory;
 import org.springframework.beans.factory.annotation.Autowired;

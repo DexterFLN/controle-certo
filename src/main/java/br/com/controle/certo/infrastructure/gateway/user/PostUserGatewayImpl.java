@@ -16,7 +16,7 @@ public class PostUserGatewayImpl implements PostUserGateway {
     @Override
     public void postUser(RequestUser body, String document) {
         DbUser user = new DbUser();
-        user.setDocumentNumber(body.getDocumentNumber());
+        user.setDocumentNumber(document);
         user.setEmailUser(body.getEmailUser());
         user.setPhoneNumber(body.getPhoneNumber());
         user.setUf(body.getUf());

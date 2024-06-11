@@ -1,6 +1,6 @@
 package br.com.controle.certo.infrastructure.gateway.category;
 
-import br.com.controle.certo.application.gateway.PutCategoryGateway;
+import br.com.controle.certo.application.gateway.category.PutCategoryGateway;
 import br.com.controle.certo.domain.entities.CategoryEntity;
 import br.com.controle.certo.infrastructure.repository.impl.DbCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

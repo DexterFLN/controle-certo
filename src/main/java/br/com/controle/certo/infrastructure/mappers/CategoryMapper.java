@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+
+import static java.util.Objects.nonNull;
 
 public class CategoryMapper {
 
@@ -32,13 +35,13 @@ public class CategoryMapper {
     }
 
     public static CategoryEntity dbCategoryToCategoryEntity(DbCategory body) {
-        return CategoryEntity.builder()
+        return nonNull(body) ? CategoryEntity.builder()
                 .idCategory(body.getIdCategory())
                 .categoryDescription(body.getCategoryDescription())
                 .categoryName(body.getCategoryName())
                 .dhCreate(body.getDhCreate())
                 .dhUpdate(body.getDhUpdate())
-                .build();
+                .build() : null;
     }
 
     public static List<CategoryEntity> dbCategoryToCategoryEntity(List<DbCategory> body) {

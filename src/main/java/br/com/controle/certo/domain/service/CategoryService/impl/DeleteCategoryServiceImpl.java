@@ -1,6 +1,6 @@
 package br.com.controle.certo.domain.service.CategoryService.impl;
 
-import br.com.controle.certo.application.gateway.DeleteCategoryGateway;
+import br.com.controle.certo.application.gateway.category.DeleteCategoryGateway;
 import br.com.controle.certo.application.gateway.usercategory.DeleteUserCategoryGateway;
 import br.com.controle.certo.application.gateway.usercategory.GetUserCategoryGateway;
 import br.com.controle.certo.domain.entities.UserCategoryEntity;
