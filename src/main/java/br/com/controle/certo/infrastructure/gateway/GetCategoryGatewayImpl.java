@@ -1,6 +1,6 @@
 package br.com.controle.certo.infrastructure.gateway;
 
-import br.com.controle.certo.application.gateway.GetCategoryGateway;
+import br.com.controle.certo.application.gateway.category.GetCategoryGateway;
 import br.com.controle.certo.domain.entities.CategoryEntity;
 import br.com.controle.certo.infrastructure.repository.impl.DbCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,11 @@ public class GetCategoryGatewayImpl implements GetCategoryGateway {
     @Override
     public CategoryEntity getCategoryById(String document, Integer idCategory) {
         return dbCategoryToCategoryEntity(repository.getAllCategoryById(document, idCategory));
+    }
+
+    @Override
+    public CategoryEntity getCategoryByIdAndName(String document, String categoryName) {
+        return dbCategoryToCategoryEntity(repository.getCategoryByIdAndName(document, categoryName));
     }
 
     @Override
