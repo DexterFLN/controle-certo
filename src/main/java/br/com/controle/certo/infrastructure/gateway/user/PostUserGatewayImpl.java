@@ -21,5 +21,5 @@ public class PostUserGatewayImpl implements PostUserGateway {
         DbUser request = requestUserToDbUser(body,userDocument);
         DbUser result = repository.save(request);
         return dbUserToUserEntity(result);
-    }
+}
 }

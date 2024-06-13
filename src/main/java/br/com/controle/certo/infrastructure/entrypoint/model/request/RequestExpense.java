@@ -36,5 +36,5 @@ public class RequestExpense {
     @Positive(message = "O ID da categoria deve ser um número positivo")
     @JsonProperty("id_categoria")
     private Integer dbCategory;
-
 }
+
