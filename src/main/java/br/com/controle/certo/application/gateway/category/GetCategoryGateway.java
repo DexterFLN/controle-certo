@@ -9,3 +9,4 @@ public interface GetCategoryGateway {
     CategoryEntity getCategoryByIdAndName(String document, String categoryName);
     List<CategoryEntity> getAllCategory(String document);
 }
+

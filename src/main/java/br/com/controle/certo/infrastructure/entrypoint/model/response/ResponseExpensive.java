@@ -33,3 +33,4 @@ public class ResponseExpensive {
     @JsonProperty("categoria_despesa")
     private ResponseCategory responseCategory;
 }
+
