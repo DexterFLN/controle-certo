@@ -20,7 +20,7 @@ public class PostCategoryServiceImpl implements PostCategoryService {
     private PostUserCategoryGateway userCategoryGateway;
     @Override
     public void saveCategoryUser(CategoryEntity body, String document) {
-        UserEntity user = userGateway.getUser(document);
+        UserEntity user = userGateway.getUserByUserDocument(document);
         UserCategoryEntity userCategory = UserCategoryEntity.builder()
                 .dbUser(userEntityToDbUser(user))
                 .dbCategory(categoryEntityToDbCategory(body)).build();
