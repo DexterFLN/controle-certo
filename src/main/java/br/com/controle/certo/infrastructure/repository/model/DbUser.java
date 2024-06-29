@@ -39,6 +39,8 @@ public class DbUser {
     private LocalDateTime dhCreate;
     @Column(name = "dh_atualizacao")
     private LocalDateTime dhUpdate;
+    @Column(name = "dh_exclusao")
+    private LocalDateTime dhExclude;
     @OneToMany(mappedBy = "dbUser")
     private List<DbExpense> dbExpenseList;
     @OneToMany
