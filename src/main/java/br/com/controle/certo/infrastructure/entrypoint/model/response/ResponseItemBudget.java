@@ -17,8 +17,8 @@ public class ResponseItemBudget {
     private Integer idItemBudget;
     @JsonProperty("item_despesa_meta_orcamento")
     private Boolean budgetTarget;
-    @JsonProperty("item_despesa_percentual")
-    private Double categoryPercentage;
+    @JsonProperty("valor_despesa_item")
+    private Double expenseValue;
     @JsonProperty("item_despesa_dh_criacao")
     private LocalDateTime dhCreate;
     @JsonProperty("item_despesa_dh_atualizacao")

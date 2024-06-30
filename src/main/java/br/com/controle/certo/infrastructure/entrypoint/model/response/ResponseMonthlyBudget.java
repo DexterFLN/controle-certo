@@ -21,14 +21,12 @@ public class ResponseMonthlyBudget {
     private LocalDateTime dhCreate;
     @JsonProperty("orcamento_dh_atualizacao")
     private LocalDateTime dhUpdate;
-    @JsonProperty("orcamento_dh_atualizacao")
+    @JsonProperty("orcamento_dh_exclude")
     private LocalDateTime dhExclude;
     @JsonProperty("renda_mensal")
     private Double monthlyIncome;
     @JsonProperty("mes_ano_referente")
     private String monthlyReference;
-    @JsonProperty("")
-    private UserEntity userEntity;
     @JsonProperty("orcamento_itens_despesas")
     private List<ResponseItemBudget> itemBudgetEntityList;
 }

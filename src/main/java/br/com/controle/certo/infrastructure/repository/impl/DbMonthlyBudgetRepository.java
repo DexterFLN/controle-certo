@@ -8,20 +8,30 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface DbMonthlyBudgetRepository extends JpaRepository<DbMonthlyBudget, Integer> {
 
     @Query("""
-        SELECT mb FROM DbMonthlyBudget mb
-        LEFT JOIN FETCH mb.dbUser us
-        LEFT JOIN FETCH mb.dbItemBudget ib
-        LEFT JOIN FETCH ib.dbCategory
-        WHERE us.documentNumber = :userDocument AND mb.dhExclude IS NULL AND
-        EXTRACT(MONTH FROM mb.dhCreate) = :month AND EXTRACT(YEAR FROM mb.dhCreate) = :year
-       """)
+            SELECT mb FROM DbMonthlyBudget mb
+            JOIN mb.dbUser us
+            WHERE us.documentNumber = :userDocument
+            AND mb.dhExclude IS NULL
+            AND mb.idMonthlyBudget = :idMonthlyBudget
+                """)
+    DbMonthlyBudget getDbMonthlyBudgetByUserDocumentAndId(@Param(value = "userDocument") String userDocument,
+                                                          @Param(value = "idMonthlyBudget") Integer idMonthlyBudget);
+
+    @Query("""
+            SELECT mb FROM DbMonthlyBudget mb
+            JOIN mb.dbUser us
+            WHERE us.documentNumber = :userDocument
+            AND mb.dhExclude IS NULL
+            AND mb.monthlyReference = :monthlyReference
+                """)
     DbMonthlyBudget getDbMonthlyBudgetCurrentMonth(@Param(value = "userDocument") String userDocument,
-                                                   @Param(value = "month") int month,
-                                                   @Param(value = "year") int year);
+                                                   @Param(value = "monthlyReference") String monthlyReference);
 
     @Transactional
     @Modifying

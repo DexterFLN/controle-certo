@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class ItemBudgetEntity {
     private Integer idItemBudget;
     private Boolean budgetTarget;
-    private Double categoryPercentage;
+    private Double expenseValue;
     private LocalDateTime dhCreate;
     private LocalDateTime dhUpdate;
     private DbCategory dbCategory;
