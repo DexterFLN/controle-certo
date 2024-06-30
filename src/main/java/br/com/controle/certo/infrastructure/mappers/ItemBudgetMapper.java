@@ -18,7 +18,7 @@ public class ItemBudgetMapper {
         return ItemBudgetEntity.builder()
                 .idItemBudget(body.getIdItemBudget())
                 .budgetTarget(body.getBudgetTarget())
-                .categoryPercentage(body.getCategoryPercentage())
+                .expenseValue(body.getCategoryPercentage())
                 .dhCreate(body.getDhCreate())
                 .dhUpdate(body.getDhUpdate())
                 .dbCategory(body.getDbCategory())

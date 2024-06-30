@@ -4,6 +4,7 @@ import br.com.controle.certo.application.gateway.monthly.PostMonthlyBudgetGatewa
 import br.com.controle.certo.application.gateway.user.GetUserGateway;
 import br.com.controle.certo.application.usecase.monthly.GetMonthlyBudgetCurrentMonthUseCase;
 import br.com.controle.certo.application.usecase.monthly.PostMonthlyBudgetIUseCase;
+import br.com.controle.certo.domain.entities.MonthlyBudgetEntity;
 import br.com.controle.certo.infrastructure.entrypoint.handler.MonthlyBudgetException;
 import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestMonthlyBudget;
 import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseMonthlyBudget;
@@ -24,7 +25,11 @@ public class PostMonthlyBudgetIUseCaseImpl implements PostMonthlyBudgetIUseCase 
 
     @Override
     public void postMonthlyBudget(String userDocument, RequestMonthlyBudget body) {
-        ResponseMonthlyBudget result = currentMonthUseCase.getMonthlyBudgetCurrentMonth(userDocument);
+        String[] split = body.getMonthlyReference().split("/");
+        int month = Integer.parseInt(split[0]);
+        int year = Integer.parseInt(split[1]);
+        ResponseMonthlyBudget result = currentMonthUseCase.getMonthlyBudgetCurrentMonth(userDocument, month,
+                year);
         if (nonNull(result)) {
             throw new MonthlyBudgetException("Orçamento para o mês corrente já foi criado.");
         }
