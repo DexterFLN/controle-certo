@@ -13,12 +13,12 @@ public class DeleteExpenseGatewayImpl implements DeleteExpenseGateway {
     private DbExpenseRepository repository;
 
     @Override
-    public void deleteExpenseById(Integer idExpense, LocalDateTime dhCreate) {
-        repository.deleteExpenseById(idExpense, dhCreate);
+    public void deleteExpenseById(Integer idExpense, int month, int year) {
+        repository.deleteExpenseById(idExpense, month, year);
     }
 
     @Override
-    public void deleteExpenseByUuId(String uuidExpense, LocalDateTime dhCreate) {
-        repository.deleteExpenseByUuid(uuidExpense, dhCreate);
+    public void deleteExpenseByUuId(String uuidExpense, int month, int year) {
+        repository.deleteExpenseByUuid(uuidExpense, month, year);
     }
 }

@@ -7,7 +7,6 @@ import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseEx
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static br.com.controle.certo.application.mapper.ExpenseUseCaseMapper.listExpenseEntityToListResponseExpense;
@@ -19,11 +18,7 @@ public class GetExpenseCurrentMonthUseCaseImpl implements GetExpenseCurrentMonth
     private GetExpenseGateway expenseGateway;
 
     @Override
-    public List<ResponseExpensive> getExpenseCurrentMonth(String userDocument) {
-        LocalDate localDate = LocalDate.now();
-        int month = localDate.getMonthValue();
-        int year = localDate.getYear();
-
+    public List<ResponseExpensive> getExpenseCurrentMonth(String userDocument, int month, int year) {
         List<ExpenseEntity> response = expenseGateway.getExpenseCurrentMonth(userDocument, month, year);
         return listExpenseEntityToListResponseExpense(response);
     }

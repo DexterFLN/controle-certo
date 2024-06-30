@@ -16,7 +16,7 @@ public class ExpenseEntity {
     private Double expenseValue;
     private Integer currentInstallment;
     private Integer totalInstallment;
-    private Boolean recurringExpense;
+    private String expenseType;
     private LocalDateTime dhCreate;
     private LocalDateTime dhUpdate;
     private CategoryEntity categoryEntity;

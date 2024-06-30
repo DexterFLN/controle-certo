@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 @Getter
@@ -21,16 +19,16 @@ public class RequestExpense {
     @JsonProperty("valor_despesa")
     private Double expenseValue;
 
-    @Min(value = 1, message = "A parcela atual deve ser pelo menos 1")
+    @Positive(message = "A parcela atual deve ser positivo")
     @JsonProperty("parcela_atual")
     private Integer currentInstallment;
 
-    @Min(value = 2, message = "O total de parcelas deve ser pelo menos 1")
+    @Positive(message = "O total de parcelas deve ser positivo")
     @JsonProperty("parcela_total")
     private Integer totalInstallment;
 
-    @JsonProperty("despesa_recorrente")
-    private Boolean recurringExpense;
+    @JsonProperty("tipo_despesa")
+    private String expenseType;
 
     @NotNull(message = "O ID da categoria não pode ser nulo")
     @Positive(message = "O ID da categoria deve ser um número positivo")
