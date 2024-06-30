@@ -5,5 +5,5 @@ import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseEx
 import java.util.List;
 
 public interface GetExpenseCurrentMonthUseCase {
-    List<ResponseExpensive> getExpenseCurrentMonth(String document);
+    List<ResponseExpensive> getExpenseCurrentMonth(String document, int month, int year);
 }

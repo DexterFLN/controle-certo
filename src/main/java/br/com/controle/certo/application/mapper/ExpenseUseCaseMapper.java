@@ -22,7 +22,7 @@ public class ExpenseUseCaseMapper {
                         .expenseValue(m.getExpenseValue())
                         .currentInstallment(m.getCurrentInstallment())
                         .totalInstallment(m.getTotalInstallment())
-                        .recurringExpense(m.getRecurringExpense())
+                        .expenseType(m.getExpenseType())
                         .dhCreate(m.getDhCreate())
                         .dhUpdate(m.getDhUpdate())
                         .responseCategory(

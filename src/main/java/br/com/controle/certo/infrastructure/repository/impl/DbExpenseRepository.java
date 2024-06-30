@@ -49,10 +49,13 @@ public interface DbExpenseRepository extends JpaRepository<DbExpense, Integer> {
             UPDATE DbExpense ex SET
             ex.dhExclude = CURRENT_TIMESTAMP
             WHERE ex.idExpense = :idExpense
-            AND ex.dhCreate >= :dhCreate
+            AND ex.dhExclude IS NULL
+            AND MONTH(ex.dhCreate) = :month
+            AND YEAR(ex.dhCreate) = :year
             """)
     void deleteExpenseById(@Param(value = "idExpense") Integer idCategory,
-                           @Param(value = "dhCreate") LocalDateTime dhCreate);
+                           @Param(value = "month") int month,
+                           @Param(value = "year") int year);
 
     @Transactional
     @Modifying
@@ -60,10 +63,13 @@ public interface DbExpenseRepository extends JpaRepository<DbExpense, Integer> {
             UPDATE DbExpense ex SET
             ex.dhExclude = CURRENT_TIMESTAMP
             WHERE ex.uuidExpense = :uuidExpense
-            AND ex.dhCreate >= :dhCreate
+            AND ex.dhExclude IS NULL
+            AND MONTH(ex.dhCreate) = :month
+            AND YEAR(ex.dhCreate) = :year
             """)
     void deleteExpenseByUuid(@Param(value = "uuidExpense") String uuidExpense,
-                             @Param(value = "dhCreate") LocalDateTime dhCreate);
+                             @Param(value = "month") int month,
+                             @Param(value = "year") int year);
 
     @Transactional
     @Modifying

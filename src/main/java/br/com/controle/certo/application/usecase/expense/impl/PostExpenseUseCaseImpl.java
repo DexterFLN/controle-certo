@@ -41,15 +41,13 @@ public class PostExpenseUseCaseImpl implements PostExpenseUseCase {
 
         List<ExpenseEntity> resultList = new ArrayList<>(emptyList());
 
-        if (body.getRecurringExpense()) {
-            expenseRecurring(body, user, categoryEntity, resultList);
-        } else {
-            expenseInstallment(body, user, categoryEntity, resultList);
+        switch (body.getExpenseType()) {
+            case "recorrente" -> expenseRecurring(body, user, categoryEntity, resultList);
+            case "parcelado" -> expenseInstallment(body, user, categoryEntity, resultList);
+            default -> createExpense(body, user, categoryEntity, resultList, LocalDateTime.now(), null, null);
         }
-
         postExpenseGateway.saveExpense(resultList);
     }
-
 
     private void expenseRecurring(RequestExpense body, UserEntity user, CategoryEntity categoryEntity, List<ExpenseEntity> resultList) {
         LocalDateTime dhCreateExpense = LocalDateTime.now();
@@ -104,7 +102,7 @@ public class PostExpenseUseCaseImpl implements PostExpenseUseCase {
                 .expenseValue(body.getExpenseValue())
                 .currentInstallment(nonNull(currentInstallment) ? currentInstallment : null)
                 .totalInstallment(body.getTotalInstallment())
-                .recurringExpense(body.getRecurringExpense())
+                .expenseType(body.getExpenseType())
                 .dhCreate(currentDh)
                 .categoryEntity(categoryEntity)
                 .userEntity(user)

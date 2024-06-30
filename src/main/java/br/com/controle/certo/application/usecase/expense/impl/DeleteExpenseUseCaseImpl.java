@@ -22,16 +22,14 @@ public class DeleteExpenseUseCaseImpl implements DeleteExpenseUseCase {
     private DeleteExpenseGateway deleteExpenseGateway;
 
     @Override
-    public void deleteExpenseById(Integer idExpense, String userDocument, Boolean recursive) {
+    public void deleteExpenseById(Integer idExpense, String userDocument, Boolean recursive, String expenseType, int month, int year) {
         ExpenseEntity response = getExpenseGateway.getExpenseById(idExpense, userDocument);
         validateDhCreateIsBeforeCurrentDate(response.getDhCreate());
 
-        if (nonNull(response)) {
-            if (recursive) {
-                deleteExpenseGateway.deleteExpenseByUuId(response.getUuidExpense(), response.getDhCreate());
-            } else {
-                deleteExpenseGateway.deleteExpenseById(response.getIdExpense(), response.getDhCreate());
-            }
+        switch (expenseType) {
+            case "recorrente", "parcelado" ->
+                    deleteExpenseGateway.deleteExpenseByUuId(response.getUuidExpense(), month, year);
+            default -> deleteExpenseGateway.deleteExpenseById(response.getIdExpense(), month, year);
         }
     }
 
