@@ -16,6 +16,7 @@ public interface DbUserRepository extends JpaRepository<DbUser, Integer> {
     @Query("""
             SELECT u FROM DbUser u
             WHERE u.documentNumber = :document
+            AND u.dhExclude IS NULL
             """)
     DbUser getUserByDocument(@Param(value = "document") String document);
 
@@ -27,7 +28,7 @@ public interface DbUserRepository extends JpaRepository<DbUser, Integer> {
     @Query("""
             UPDATE DbUser u
             SET u.dhExclude = CURRENT_TIMESTAMP
-            WHERE u.documentNumber =:userDocument
+            WHERE u.idUser =:id
             """)
-    void deleteUserByDocument(@Param(value = "userDocument") String userDocument);
+    void deleteUserById(@Param(value = "id") Integer id);
 }

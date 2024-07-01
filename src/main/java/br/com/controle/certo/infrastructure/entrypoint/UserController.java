@@ -1,15 +1,17 @@
 package br.com.controle.certo.infrastructure.entrypoint;
 
-import br.com.controle.certo.application.usecase.category.GetCategoryAllUseCase;
-import br.com.controle.certo.application.usecase.category.GetCategoryUseCase;
-import br.com.controle.certo.application.usecase.category.PostCategoryUseCase;
-import br.com.controle.certo.application.usecase.user.PostUserUseCase;
-import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestCategory;
+import br.com.controle.certo.application.usecase.user.*;
+import br.com.controle.certo.infrastructure.config.resourceserver.AuthJwtClaim;
+import br.com.controle.certo.infrastructure.config.resourceserver.CheckSecurity;
+import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestPutUser;
 import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestUser;
+import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/v1/user")
@@ -18,36 +20,49 @@ public class UserController {
     @Autowired
     private PostUserUseCase postUserUseCase;
     @Autowired
-    private GetCategoryAllUseCase getCategoryAllUseCase;
+    private PutUserUseCase putUserUseCase;
     @Autowired
-    private GetCategoryUseCase getCategoryUseCase;
+    private GetUserAllUseCase getUserAllUseCase;
+    @Autowired
+    private GetUserByUserDocumentUseCase getUserByUserDocumentUseCase;
+    @Autowired
+    private DeleteUserUseCase deleteUserUseCase;
+    @Autowired
+    private AuthJwtClaim authJwtClaim;
 
+    @CheckSecurity.isAuthenticated
     @PostMapping()
-    public ResponseEntity<?> saveCategory(@RequestBody RequestUser body, @RequestHeader(value = "document") String document) {
-        postUserUseCase.postUser(body, document);
+    public ResponseEntity<?> postUser(@Valid @RequestBody RequestUser body) {
+        String userDocument = authJwtClaim.getDocumentNumberUserFromJwt();
+        ResponseUser result = postUserUseCase.postUser(body, userDocument);
+        return ResponseEntity.ok(result);
+    }
+
+    @CheckSecurity.hasAuthorityAdmin
+    @GetMapping("/all")
+    public ResponseEntity<?> getUserAll() {
+        return ResponseEntity.ok(getUserAllUseCase.getUserAll());
+    }
+
+    @CheckSecurity.isAuthenticated
+    @GetMapping(value = "/document")
+    public ResponseEntity<?> getUserByUserDocument() {
+        String userDocument = authJwtClaim.getDocumentNumberUserFromJwt();
+        return ResponseEntity.ok(getUserByUserDocumentUseCase.getUserByUserDocument(userDocument));
+    }
+
+    @CheckSecurity.isAuthenticated
+    @PutMapping()
+    public ResponseEntity<?> updateUserByDocument(@RequestBody RequestPutUser body) {
+        String userDocument = authJwtClaim.getDocumentNumberUserFromJwt();
+        putUserUseCase.putUserByUserDocument(body, userDocument);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping()
-    public ResponseEntity<?> getAllCategory(@RequestHeader(value = "document") String document) {
-        return ResponseEntity.ok(getCategoryAllUseCase.getAllCategory(document));
+    @CheckSecurity.hasAuthorityAdmin
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUserByUserDocument(@PathVariable(value = "id") Integer id) {
+        deleteUserUseCase.deleteUserByUserDocument(id);
+        return ResponseEntity.noContent().build();
     }
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getCategoryById(@PathVariable(value = "id") Integer idCategory, @RequestHeader(value = "document") String document) {
-        return ResponseEntity.ok(getCategoryUseCase.getCategoryById(document, idCategory));
-    }
-
-//    @PutMapping()
-//    public ResponseEntity<?> updateCategoryById(@RequestBody RequestCategory body, @RequestHeader(value = "document") String document) {
-//        postCategoryUseCase.saveCategory(body, document);
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @DeleteMapping()
-//    public ResponseEntity<?> deleteCategoryById(@RequestBody RequestCategory body, @RequestHeader(value = "document") String document) {
-//        postCategoryUseCase.saveCategory(body, document);
-//        return ResponseEntity.ok().build();
-//    }
-
 }
