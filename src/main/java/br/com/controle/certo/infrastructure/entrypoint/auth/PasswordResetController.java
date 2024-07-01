@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @RestController
 @RequestMapping("v1/password-reset")
 public class PasswordResetController {
@@ -22,7 +24,7 @@ public class PasswordResetController {
 
     @PostMapping("/request")
     public ResponseEntity<?> requestPasswordReset(@RequestHeader("username") String username,
-                                                  @RequestHeader("email") String email) {
+                                                  @RequestHeader("email") String email) throws MessagingException {
         changePasswordUserAuthUseCase.createToken(username, email);
         return ResponseEntity.ok("Token enviado com sucesso para o e-mail registrado.");
     }

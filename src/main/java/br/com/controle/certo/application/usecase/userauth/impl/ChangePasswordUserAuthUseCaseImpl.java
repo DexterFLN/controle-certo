@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -36,7 +37,7 @@ public class ChangePasswordUserAuthUseCaseImpl implements ChangePasswordUserAuth
 
     @Transactional
     @Override
-    public void createToken(String username, String email) {
+    public void createToken(String username, String email) throws MessagingException {
         DbUserAuth dbUserAuth = validateUserExists(username, email);
 
         String token = UUID.randomUUID().toString();
@@ -51,7 +52,7 @@ public class ChangePasswordUserAuthUseCaseImpl implements ChangePasswordUserAuth
         resetPassword(dbUserAuth, token, dbUserAuth);
         tokenRepository.save(resetToken);
 
-        sendEmailToChangePasswordUseCase.sendEmailToUserEmail(email, token);
+        sendEmailToChangePasswordUseCase.sendEmailToUserEmail(username,email, token);
     }
 
 
@@ -87,7 +88,7 @@ public class ChangePasswordUserAuthUseCaseImpl implements ChangePasswordUserAuth
         DbUserAuth result = userAuthRepository.findByUsernameAndEmail(username, body.getEmail());
 
         if (isNull(result)) {
-            throw new UserException("ajustar msg");
+            throw new UserException("Usuario nao encontrado.");
         }
 
         if (result.getUserPassword().equals(passwordEncoder.encode(body.getOldPassword()))) {
