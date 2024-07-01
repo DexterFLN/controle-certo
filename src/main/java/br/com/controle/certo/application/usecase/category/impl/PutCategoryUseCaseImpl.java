@@ -9,10 +9,7 @@ import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseCa
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 import static br.com.controle.certo.application.mapper.CategoryUseCaseMapper.categoryEntityToResponseCategory;
-import static java.util.Objects.nonNull;
 
 @Component
 public class PutCategoryUseCaseImpl implements PutCategoryUseCase {
@@ -24,9 +21,10 @@ public class PutCategoryUseCaseImpl implements PutCategoryUseCase {
     @Override
     public ResponseCategory updateCategoryById(String document, Integer idCategory, RequestCategory body) {
         CategoryEntity category = categoryByIdGateway.getCategoryById(document, idCategory);
-        category.setCategoryName(nonNull(body.getCategoryName()) ? body.getCategoryName() : category.getCategoryName());
-        category.setCategoryDescription(nonNull(body.getCategoryDescription()) ? body.getCategoryDescription() : category.getCategoryDescription());
+        category.setCategoryName(body.getCategoryName() != null ? body.getCategoryName() : category.getCategoryName());
+        category.setCategoryDescription(body.getCategoryDescription() != null ? body.getCategoryDescription() : category.getCategoryDescription());
         CategoryEntity response = putCategoryGateway.updateCategoryById(idCategory, category);
+
         return categoryEntityToResponseCategory(response);
     }
 }
