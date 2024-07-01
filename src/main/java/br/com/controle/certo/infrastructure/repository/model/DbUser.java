@@ -19,6 +19,8 @@ public class DbUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Integer idUser;
+    @Column(name = "nome_usuario")
+    private String userName;
     @Column(name = "nr_documento")
     private String documentNumber;
     @Column(name = "email_usuario")
@@ -27,6 +29,10 @@ public class DbUser {
     private String phoneNumber;
     @Column(name = "uf")
     private String uf;
+    @Column(name = "cep")
+    private String cep;
+    @Column(name = "bairro")
+    private String neighborhood;
     @Column(name = "municipio")
     private String county;
     @Column(name = "data_aceite_termos")

@@ -4,7 +4,6 @@ import br.com.controle.certo.domain.entities.UserEntity;
 import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestUser;
 import br.com.controle.certo.infrastructure.repository.model.DbUser;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
