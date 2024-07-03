@@ -14,6 +14,16 @@ import java.util.List;
 public interface DbMonthlyBudgetRepository extends JpaRepository<DbMonthlyBudget, Integer> {
 
     @Query("""
+            SELECT b FROM DbMonthlyBudget b
+            JOIN b.dbUser u
+            WHERE u.documentNumber = :userDocument
+            AND b.dhCreate = (SELECT MAX(b2.dhCreate) FROM DbMonthlyBudget b2
+            JOIN b2.dbUser u2
+                WHERE u2.documentNumber = :userDocument)
+            """)
+    DbMonthlyBudget findMostRecentMonthlyBudgetByDocumentNumber(@Param("userDocument") String userDocument);
+
+    @Query("""
             SELECT mb FROM DbMonthlyBudget mb
             JOIN mb.dbUser us
             WHERE us.documentNumber = :userDocument

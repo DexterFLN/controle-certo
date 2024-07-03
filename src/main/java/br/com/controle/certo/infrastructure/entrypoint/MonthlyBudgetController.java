@@ -2,6 +2,7 @@ package br.com.controle.certo.infrastructure.entrypoint;
 
 import br.com.controle.certo.application.usecase.monthly.DeleteMonthlyBudgetUseCase;
 import br.com.controle.certo.application.usecase.monthly.GetMonthlyBudgetCurrentMonthUseCase;
+import br.com.controle.certo.application.usecase.monthly.GetMonthlyBudgetLastMonthUseCase;
 import br.com.controle.certo.application.usecase.monthly.PostMonthlyBudgetIUseCase;
 import br.com.controle.certo.infrastructure.config.resourceserver.AuthJwtClaim;
 import br.com.controle.certo.infrastructure.config.resourceserver.CheckSecurity;
@@ -18,7 +19,8 @@ public class MonthlyBudgetController {
 
     @Autowired
     private PostMonthlyBudgetIUseCase monthlyBudgetIUseCase;
-
+    @Autowired
+    private GetMonthlyBudgetLastMonthUseCase getMonthlyBudgetLastMonthUseCase;
     @Autowired
     private GetMonthlyBudgetCurrentMonthUseCase getMonthlyBudgetCurrentMonthUseCase;
     @Autowired
@@ -50,5 +52,14 @@ public class MonthlyBudgetController {
         String userDocument = authJwtClaim.getDocumentNumberUserFromJwt();
         deleteMonthlyBudgetUseCase.deleteMonthlyBudget(userDocument, idMonthlyBudget);
         return ResponseEntity.noContent().build();
+    }
+
+    @CheckSecurity.isAuthenticated
+    @GetMapping(value = "/last-month")
+    public ResponseEntity<?> getMonthlyBudgetLastMonth() {
+        String userDocument = authJwtClaim.getDocumentNumberUserFromJwt();
+        ResponseMonthlyBudget response = getMonthlyBudgetLastMonthUseCase.getMonthlyBudgetLastMonth(userDocument);
+        return ResponseEntity.ok()
+                .body(response);
     }
 }
