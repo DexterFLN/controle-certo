@@ -3,7 +3,9 @@ package br.com.controle.certo.application.usecase.userauth.impl;
 import br.com.controle.certo.application.usecase.userauth.ChangePasswordUserAuthUseCase;
 import br.com.controle.certo.application.usecase.userauth.PostUserAuthUseCase;
 import br.com.controle.certo.application.usecase.userauth.SendEmailToChangePasswordUseCase;
+import br.com.controle.certo.infrastructure.entrypoint.handler.UserAuthException;
 import br.com.controle.certo.infrastructure.entrypoint.handler.UserException;
+import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestUserRegistration;
 import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestUserRegistrationUpdate;
 import br.com.controle.certo.infrastructure.repository.auth.DbPasswordResetToken;
 import br.com.controle.certo.infrastructure.repository.auth.DbPasswordResetTokenRepository;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import static java.util.Objects.isNull;
@@ -52,7 +55,7 @@ public class ChangePasswordUserAuthUseCaseImpl implements ChangePasswordUserAuth
         resetPassword(dbUserAuth, token, dbUserAuth);
         tokenRepository.save(resetToken);
 
-        sendEmailToChangePasswordUseCase.sendEmailToUserEmail(username,email, token);
+        sendEmailToChangePasswordUseCase.sendEmailToUserEmail(username, email, token);
     }
 
 
@@ -85,13 +88,11 @@ public class ChangePasswordUserAuthUseCaseImpl implements ChangePasswordUserAuth
 
     @Override
     public void changePasswordOnApp(String username, RequestUserRegistrationUpdate body) {
-        DbUserAuth result = userAuthRepository.findByUsernameAndEmail(username, body.getEmail());
+        DbUserAuth result = userAuthRepository.findByUsernameAndDhExcludeIsNull(username).orElseThrow();
 
-        if (isNull(result)) {
-            throw new UserException("Usuario nao encontrado.");
-        }
-
-        if (result.getUserPassword().equals(passwordEncoder.encode(body.getOldPassword()))) {
+        if (!passwordEncoder.matches(body.getOldPassword(), result.getUserPassword())) {
+            throw new UserAuthException("A senha atual não está correta.");
+        } else {
             result.setUserPassword(passwordEncoder.encode(body.getNewPassword()));
             userAuthRepository.save(result);
         }

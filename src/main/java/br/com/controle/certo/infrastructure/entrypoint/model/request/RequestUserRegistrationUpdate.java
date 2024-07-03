@@ -13,6 +13,4 @@ public class RequestUserRegistrationUpdate {
     private String newPassword;
     @JsonProperty("old_password")
     private String oldPassword;
-    @JsonProperty("email")
-    private String email;
 }
