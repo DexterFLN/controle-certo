@@ -29,4 +29,10 @@ public class GetMonthlyBudgetGatewayImpl implements GetMonthlyBudgetGateway {
         DbMonthlyBudget response = repository.getDbMonthlyBudgetByUserDocumentAndId(userDocument, idMonthlyBudget);
         return dbMonthlyBudgetToMonthlyBudgetEntity(response);
     }
+
+    @Override
+    public MonthlyBudgetEntity getLastMonthlyBudget(String userDocument) {
+        DbMonthlyBudget response = repository.findMostRecentMonthlyBudgetByDocumentNumber(userDocument);
+        return dbMonthlyBudgetToMonthlyBudgetEntity(response);
+    }
 }
