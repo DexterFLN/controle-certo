@@ -1,9 +1,8 @@
 package br.com.controle.certo.infrastructure.repository.impl;
 
-import br.com.controle.certo.infrastructure.entrypoint.model.response.ResponseCategory;
 import br.com.controle.certo.infrastructure.repository.model.DbCategory;
 import br.com.controle.certo.infrastructure.repository.model.DbExpense;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import br.com.controle.certo.infrastructure.repository.model.DbUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +15,17 @@ import java.util.List;
 
 @Repository
 public interface DbExpenseRepository extends JpaRepository<DbExpense, Integer> {
+
+    @Query("""
+            SELECT e FROM DbExpense e
+            WHERE e.dbUser = :user
+            AND e.dhExclude IS NULL
+            AND e.dhCreate >= :startDate
+            AND e.dhCreate < :endDate
+            """)
+    List<DbExpense> findByDbUserAndMonth(@Param("user") DbUser user,
+                                         @Param("startDate") LocalDateTime startDate,
+                                         @Param("endDate") LocalDateTime endDate);
     @Query("""
             SELECT ex FROM DbExpense ex
             INNER JOIN ex.dbUser cd

@@ -26,6 +26,8 @@ public class DbItemBudget {
     private LocalDateTime dhCreate;
     @Column(name = "dh_atualizacao")
     private LocalDateTime dhUpdate;
+    @Column(name = "experiencia_concedida")
+    private Boolean experienceGranted = false;
     @OneToOne
     @JoinColumn(name = "id_categoria")
     private DbCategory dbCategory;
