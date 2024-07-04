@@ -17,6 +17,7 @@ public class DbMonthlyBudget {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_orcamento_mensal")
     private Integer idMonthlyBudget;
     @Column(name = "dh_criacao")
     private LocalDateTime dhCreate;
@@ -31,7 +32,7 @@ public class DbMonthlyBudget {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private DbUser dbUser;
-    @OneToMany(mappedBy = "dbMonthlyBudget", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dbMonthlyBudget", cascade = CascadeType.ALL)
     private List<DbItemBudget> dbItemBudget;
 
     @PrePersist
