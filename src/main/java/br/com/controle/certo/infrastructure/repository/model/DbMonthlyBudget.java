@@ -22,12 +22,16 @@ public class DbMonthlyBudget {
     private LocalDateTime dhCreate;
     @Column(name = "dh_atualizacao")
     private LocalDateTime dhUpdate;
-
+    @Column(name = "dh_exclusao")
+    private LocalDateTime dhExclude;
+    @Column(name = "renda_mensal")
+    private Double monthlyIncome;
+    @Column(name = "mes_ano_referencia")
+    private String monthlyReference;
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private DbUser dbUser;
-
-    @OneToMany
+    @OneToMany(mappedBy = "dbMonthlyBudget", cascade = CascadeType.ALL)
     private List<DbItemBudget> dbItemBudget;
 
     @PrePersist

@@ -21,7 +21,5 @@ public class DeleteCategoryServiceImpl implements DeleteCategoryService {
     public void deleteCategory(String document, Integer idCategory) {
         UserCategoryEntity userCategory = getUserCategoryGateway.getUserCategory(document, idCategory);
         deleteUserCategoryGateway.deleteUserCategoryGateway(userCategory);
-        deleteCategoryGateway.deleteCategoryById(idCategory);
-
     }
 }

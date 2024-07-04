@@ -1,4 +1,4 @@
-package br.com.controle.certo.infrastructure.gateway;
+package br.com.controle.certo.infrastructure.gateway.category;
 
 import br.com.controle.certo.application.gateway.category.GetCategoryGateway;
 import br.com.controle.certo.domain.entities.CategoryEntity;

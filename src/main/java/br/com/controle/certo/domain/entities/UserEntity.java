@@ -14,10 +14,13 @@ import java.util.List;
 @Builder
 public class UserEntity {
     private Integer idUser;
+    private String userName;
     private String documentNumber;
     private String emailUser;
     private String phoneNumber;
     private String uf;
+    private String cep;
+    private String neighborhood;
     private String county;
     private Boolean acceptTerms;
     private Integer lvlUser;

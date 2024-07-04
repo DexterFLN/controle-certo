@@ -1,8 +1,6 @@
 package br.com.controle.certo.infrastructure.repository.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +8,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_item_orcamento")
 public class DbItemBudget {
@@ -19,9 +19,9 @@ public class DbItemBudget {
     @Column(name = "id_item_orcamento")
     private Integer idItemBudget;
     @Column(name = "meta_orcamento")
-    private Double budgetTarget;
-    @Column(name = "percentual_categoria")
-    private Double categoryPercentage;
+    private Boolean budgetTarget;
+    @Column(name = "valor_despesa_categoria")
+    private Double expenseValue;
     @Column(name = "dh_criacao")
     private LocalDateTime dhCreate;
     @Column(name = "dh_atualizacao")

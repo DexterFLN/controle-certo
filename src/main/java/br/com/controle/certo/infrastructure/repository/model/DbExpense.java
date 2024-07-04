@@ -28,8 +28,8 @@ public class DbExpense {
     private Integer currentInstallment;
     @Column(name = "parcela_total")
     private Integer totalInstallment;
-    @Column(name = "despesa_recorrente")
-    private Boolean recurringExpense;
+    @Column(name = "tipo_despesa")
+    private String expenseType;
     @Column(name = "dh_criacao")
     private LocalDateTime dhCreate;
     @Column(name = "dh_atualizacao")

@@ -1,11 +1,15 @@
 package br.com.controle.certo.infrastructure.entrypoint.handler;
 
+import org.springframework.beans.factory.parsing.Problem;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +42,15 @@ public class HandlerExceptionApplication {
         return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UserAuthException.class)
+    public ResponseEntity<?> handleUserAuthException(UserAuthException ex) {
+        ApiValidationError result = ApiValidationError.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(CategoryException.class)
     public ResponseEntity<?> handleCategoryException(CategoryException ex) {
         ApiValidationError result = ApiValidationError.builder()
@@ -63,5 +76,14 @@ public class HandlerExceptionApplication {
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> handleNotFoundEntity(AccessDeniedException ex) {
+        ApiValidationError result = ApiValidationError.builder()
+                .message("Você não possui permissão para executar essa operação.")
+                .code(HttpStatus.FORBIDDEN.value())
+                .build();
+        return new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
     }
 }

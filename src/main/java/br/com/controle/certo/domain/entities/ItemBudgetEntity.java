@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ItemBudgetEntity {
     private Integer idItemBudget;
-    private Double budgetTarget;
-    private Double categoryPercentage;
+    private Boolean budgetTarget;
+    private Double expenseValue;
     private LocalDateTime dhCreate;
     private LocalDateTime dhUpdate;
     private DbCategory dbCategory;

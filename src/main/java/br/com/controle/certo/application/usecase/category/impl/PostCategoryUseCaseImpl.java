@@ -50,7 +50,7 @@ public class PostCategoryUseCaseImpl implements PostCategoryUseCase {
 
     private CategoryEntity saveUserCategory(String userDocument, RequestCategory body) {
         CategoryEntity result = gateway.postCategoryGateway(body);
-        UserEntity user = userGateway.getUser(userDocument);
+        UserEntity user = userGateway.getUserByUserDocument(userDocument);
 
         if (isNull(user)) {
             throw new UserException("Usuário não encontrado.");
