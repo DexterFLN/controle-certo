@@ -24,7 +24,7 @@ public class GetExpenseByIdUseCaseTest {
 
     @Test
     void testGetExpenseById() {
-        // Configura os dados esperados
+
         ResponseExpensive expectedResponse = ResponseExpensive.builder()
                 .idExpense(1)
                 .uuidDespesa("uuid123")
@@ -38,14 +38,14 @@ public class GetExpenseByIdUseCaseTest {
                 .responseCategory(new ResponseCategory())  // Suponha que ResponseCategory também tenha um builder ou um construtor padrão
                 .build();
 
-        // Configura o comportamento do mock
+
         when(getExpenseByIdUseCase.getExpenseById(anyInt(), anyString()))
                 .thenReturn(expectedResponse);
 
-        // Executa o método
+
         ResponseExpensive actualResponse = getExpenseByIdUseCase.getExpenseById(1, "userDocument");
 
-        // Verifica o resultado
+
         assertEquals(expectedResponse, actualResponse);
     }
 }
