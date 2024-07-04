@@ -10,8 +10,8 @@ import lombok.Setter;
 @Builder
 public class RequestItemBudget {
 
-    @JsonProperty("percentual_categoria")
-    private Double categoryPercentage;
+    @JsonProperty("valor_despesa_categoria")
+    private Double expenseValue;
     @JsonProperty("id_categoria")
     private Integer dbCategory;
 }

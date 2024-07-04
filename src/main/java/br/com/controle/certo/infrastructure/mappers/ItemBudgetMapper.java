@@ -9,7 +9,7 @@ public class ItemBudgetMapper {
     public static DbItemBudget itemBudgetToDbItemBudget(RequestItemBudget body, DbCategory category) {
         DbItemBudget response = new DbItemBudget();
         response.setBudgetTarget(false);
-        response.setCategoryPercentage(body.getCategoryPercentage());
+        response.setExpenseValue(body.getExpenseValue());
         response.setDbCategory(category);
         return response;
     }
@@ -18,7 +18,7 @@ public class ItemBudgetMapper {
         return ItemBudgetEntity.builder()
                 .idItemBudget(body.getIdItemBudget())
                 .budgetTarget(body.getBudgetTarget())
-                .expenseValue(body.getCategoryPercentage())
+                .expenseValue(body.getExpenseValue())
                 .dhCreate(body.getDhCreate())
                 .dhUpdate(body.getDhUpdate())
                 .dbCategory(body.getDbCategory())

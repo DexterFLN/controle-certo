@@ -20,8 +20,8 @@ public class DbItemBudget {
     private Integer idItemBudget;
     @Column(name = "meta_orcamento")
     private Boolean budgetTarget;
-    @Column(name = "percentual_categoria")
-    private Double categoryPercentage;
+    @Column(name = "valor_despesa_categoria")
+    private Double expenseValue;
     @Column(name = "dh_criacao")
     private LocalDateTime dhCreate;
     @Column(name = "dh_atualizacao")

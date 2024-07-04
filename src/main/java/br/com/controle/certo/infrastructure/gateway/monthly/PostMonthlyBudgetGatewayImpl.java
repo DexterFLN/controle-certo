@@ -62,7 +62,7 @@ public class PostMonthlyBudgetGatewayImpl implements PostMonthlyBudgetGateway {
         List<DbItemBudget> dbItemBudgetStream = body.getItemBudgetList().stream().map(m ->
                 DbItemBudget.builder()
                         .budgetTarget(Boolean.FALSE)
-                        .categoryPercentage(m.getCategoryPercentage())
+                        .expenseValue(m.getExpenseValue())
                         .dbCategory(DbCategory.builder().idCategory(m.getDbCategory()).build())
                         .dbMonthlyBudget(response)
                         .build()
