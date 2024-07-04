@@ -1,5 +1,4 @@
 package br.com.controle.certo.application.usecase.expense;
-
 import br.com.controle.certo.application.gateway.expense.GetExpenseGateway;
 import br.com.controle.certo.application.usecase.expense.impl.GetExpenseCurrentMonthUseCaseImpl;
 import br.com.controle.certo.domain.entities.CategoryEntity;
@@ -18,36 +17,28 @@ import java.util.List;
 import static br.com.controle.certo.application.mapper.ExpenseUseCaseMapper.listExpenseEntityToListResponseExpense;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-
 public class GetExpenseCurrentMonthUseCaseTest {
-
     @Mock
     private GetExpenseGateway expenseGateway;
-
     @InjectMocks
     private GetExpenseCurrentMonthUseCaseImpl getExpenseCurrentMonthUseCase;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
     @Test
     void testGetExpenseCurrentMonth() {
         String userDocument = "123456789";
         int month = 7;
         int year = 2024;
-
         CategoryEntity categoryEntity = CategoryEntity.builder()
                 .idCategory(1)
                 .categoryName("Food")
                 .build();
-
         UserEntity userEntity = UserEntity.builder()
                 .idUser(1)
                 .userName(userDocument)
                 .build();
-
         ExpenseEntity expenseEntity = ExpenseEntity.builder()
                 .idExpense(1)
                 .uuidExpense("uuid")
@@ -61,15 +52,11 @@ public class GetExpenseCurrentMonthUseCaseTest {
                 .categoryEntity(categoryEntity)
                 .userEntity(userEntity)
                 .build();
-
         List<ExpenseEntity> expenseEntities = List.of(expenseEntity);
         List<ResponseExpensive> expectedExpenses = listExpenseEntityToListResponseExpense(expenseEntities);
-
         when(expenseGateway.getExpenseCurrentMonth(userDocument, month, year)).thenReturn(expenseEntities);
-
-        List<ResponseExpensive> actualExpenses = getExpenseCurrentMonthUseCase.getExpenseCurrentMonth(userDocument, month, year);
-
-        // Verificar campo a campo em vez de verificar referências
+        List<ResponseExpensive> actualExpenses = getExpenseCurrentMonthUseCase.getExpenseCurrentMonth(userDocument,
+                month, year);
         for (int i = 0; i < expectedExpenses.size(); i++) {
             ResponseExpensive expected = expectedExpenses.get(i);
             ResponseExpensive actual = actualExpenses.get(i);
@@ -83,7 +70,8 @@ public class GetExpenseCurrentMonthUseCaseTest {
             assertEquals(expected.getDhCreate(), actual.getDhCreate());
             assertEquals(expected.getDhUpdate(), actual.getDhUpdate());
             assertEquals(expected.getResponseCategory().getIdCategory(), actual.getResponseCategory().getIdCategory());
-            assertEquals(expected.getResponseCategory().getCategoryName(), actual.getResponseCategory().getCategoryName());
+            assertEquals(expected.getResponseCategory().getCategoryName(), actual.getResponseCategory()
+                    .getCategoryName());
         }
     }
 }

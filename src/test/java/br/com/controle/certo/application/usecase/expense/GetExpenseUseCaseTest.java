@@ -1,5 +1,4 @@
 package br.com.controle.certo.application.usecase.expense;
-
 import br.com.controle.certo.application.gateway.expense.GetExpenseGateway;
 import br.com.controle.certo.application.usecase.expense.impl.GetExpenseUseCaseImpl;
 import br.com.controle.certo.domain.entities.CategoryEntity;
@@ -16,29 +15,22 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-
 public class GetExpenseUseCaseTest {
-
     @Mock
     private GetExpenseGateway expenseGateway;
-
     @InjectMocks
     private GetExpenseUseCaseImpl getExpenseUseCase;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
     @Test
     void testGetAllExpenseByDocument() {
         String userDocument = "123456789";
-
         CategoryEntity categoryEntity = CategoryEntity.builder()
                 .idCategory(1)
                 .categoryName("Category Name")
                 .build();
-
         ExpenseEntity expenseEntity = ExpenseEntity.builder()
                 .idExpense(1)
                 .uuidExpense("uuid-123")
@@ -52,9 +44,7 @@ public class GetExpenseUseCaseTest {
                 .categoryEntity(categoryEntity)
                 .userEntity(null)
                 .build();
-
         List<ExpenseEntity> expenseEntities = List.of(expenseEntity);
-
         ResponseExpensive expectedExpense = ResponseExpensive.builder()
                 .idExpense(1)
                 .uuidDespesa("uuid-123")
@@ -67,16 +57,11 @@ public class GetExpenseUseCaseTest {
                 .dhUpdate(LocalDateTime.now())
                 .responseCategory(null)
                 .build();
-
         List<ResponseExpensive> expectedExpenses = List.of(expectedExpense);
-
         when(expenseGateway.getAllExpenseByUserDocument(userDocument)).thenReturn(expenseEntities);
-
         List<ResponseExpensive> actualExpenses = getExpenseUseCase.getAllExpenseByDocument(userDocument);
-
         assertEquals(expectedExpenses.size(), actualExpenses.size());
         assertEquals(expectedExpenses.get(0).getIdExpense(), actualExpenses.get(0).getIdExpense());
         assertEquals(expectedExpenses.get(0).getUuidDespesa(), actualExpenses.get(0).getUuidDespesa());
-        // Adicione mais asserções conforme necessário para outros campos
     }
 }
