@@ -7,7 +7,6 @@ import br.com.controle.certo.application.usecase.expense.impl.PostExpenseUseCase
 import br.com.controle.certo.domain.entities.CategoryEntity;
 import br.com.controle.certo.domain.entities.UserEntity;
 import br.com.controle.certo.infrastructure.entrypoint.model.request.RequestExpense;
-import br.com.controle.certo.infrastructure.repository.impl.DbExpenseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,9 +16,6 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.*;
 
 public class PostExpenseUseCaseTest {
-
-    @Mock
-    private DbExpenseRepository expenseRepository;
 
     @Mock
     private GetUserGateway userGateway;
