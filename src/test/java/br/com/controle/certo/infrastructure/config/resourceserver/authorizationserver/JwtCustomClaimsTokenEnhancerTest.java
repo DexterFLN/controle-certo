@@ -32,4 +32,4 @@ public class JwtCustomClaimsTokenEnhancerTest {
         assertTrue(enhancedToken.getAdditionalInformation().containsKey("email"));
         assertEquals("test@example.com", enhancedToken.getAdditionalInformation().get("email"));
     }
-}
+}//teste do JWTCustom
