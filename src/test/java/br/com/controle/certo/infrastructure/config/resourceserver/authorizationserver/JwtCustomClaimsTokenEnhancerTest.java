@@ -33,3 +33,4 @@ public class JwtCustomClaimsTokenEnhancerTest {
         assertEquals("test@example.com", enhancedToken.getAdditionalInformation().get("email"));
     }
 }
+
