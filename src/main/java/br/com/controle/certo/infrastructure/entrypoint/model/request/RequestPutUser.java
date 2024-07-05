@@ -3,6 +3,8 @@ package br.com.controle.certo.infrastructure.entrypoint.model.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.validation.constraints.*;
+
 @Getter
 @Setter
 @Builder
