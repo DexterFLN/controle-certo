@@ -33,7 +33,7 @@ public class PostUserGatewayImplTest {
     @Test
     public void testPostUser() {
         RequestUser requestUser = RequestUser.builder()
-                .documentNumber("123456789")
+                .userName("123456789")
                 .emailUser("john.doe@example.com")
                 .phoneNumber("987654321")
                 .uf("SP")

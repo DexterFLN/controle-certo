@@ -47,7 +47,7 @@ public class PostUserUseCaseImplTest {
                 .build();
 
         requestUser = RequestUser.builder()
-                .documentNumber(userDocument)
+                .userName(userDocument)
                 .emailUser("test@example.com")
                 .phoneNumber("123456789")
                 .uf("SP")
