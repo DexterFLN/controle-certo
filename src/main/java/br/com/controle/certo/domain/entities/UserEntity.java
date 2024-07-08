@@ -27,6 +27,7 @@ public class UserEntity {
     private Integer xpUser;
     private LocalDateTime dhCreate;
     private LocalDateTime dhUpdate;
+    private LocalDateTime dhExclude;
     private List<DbExpense> dbExpenseList;
     private List<DbMonthlyBudget> dbMonthlyBudgetList;
 }

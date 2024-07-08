@@ -47,6 +47,7 @@ public class UserUseCaseMapper {
                         .xpUser(m.getXpUser())
                         .dhCreate(m.getDhCreate())
                         .dhUpdate(m.getDhUpdate())
+                        .dhExclude(m.getDhExclude())
                         .build()).collect(Collectors.toList()) : emptyList();
     }
 }

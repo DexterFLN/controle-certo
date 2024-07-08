@@ -1,6 +1,7 @@
 package br.com.controle.certo.infrastructure.entrypoint.model.response;
 
 import br.com.controle.certo.domain.entities.MonthlyBudgetEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,10 +39,15 @@ public class ResponseUser {
     private Integer lvlUser;
     @JsonProperty("usuario_experiencia")
     private Integer xpUser;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @JsonProperty("usuario_dh_criacao")
     private LocalDateTime dhCreate;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @JsonProperty("usuario_dh_atualizacao")
     private LocalDateTime dhUpdate;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonProperty("usuario_dh_exclusao")
+    private LocalDateTime dhExclude;
     @JsonProperty("despesas_usuario")
     private List<ResponseExpensive> expensiveList;
     @JsonProperty("orcamentos_mensais")
