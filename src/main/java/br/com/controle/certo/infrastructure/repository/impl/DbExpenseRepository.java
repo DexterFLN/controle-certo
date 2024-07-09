@@ -70,13 +70,12 @@ public interface DbExpenseRepository extends JpaRepository<DbExpense, Integer> {
     @Transactional
     @Modifying
     @Query("""
-            UPDATE DbExpense ex SET
-            ex.dhExclude = CURRENT_TIMESTAMP
-            WHERE ex.uuidExpense = :uuidExpense
-            AND ex.dhExclude IS NULL
-            AND MONTH(ex.dhCreate) = :month
-            AND YEAR(ex.dhCreate) = :year
-            """)
+        UPDATE DbExpense ex SET
+        ex.dhExclude = CURRENT_TIMESTAMP
+        WHERE ex.uuidExpense = :uuidExpense
+        AND ex.dhExclude IS NULL
+        AND DATE_TRUNC('month', ex.dhCreate) >= DATE_TRUNC('month', TO_DATE(:year || '-' || :month, 'YYYY-MM'))
+        """)
     void deleteExpenseByUuid(@Param(value = "uuidExpense") String uuidExpense,
                              @Param(value = "month") int month,
                              @Param(value = "year") int year);
